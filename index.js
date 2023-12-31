@@ -6,6 +6,8 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
 
+// import routes
+const authRoute = require("./routes/authRoutes");
 // call dotenv
 require("dotenv").config();
 
@@ -32,10 +34,14 @@ app.use(
 );
 
 app.use(cookieParser());
-app.use(cors);
+app.use(cors());
+
+// routes
+app.use("/", authRoute);
 
 // error handler middleware
 app.use(errorHandler);
+
 // listen the app
 app.listen(port, () => {
   console.log(`Server is running at port: ${port}`);
